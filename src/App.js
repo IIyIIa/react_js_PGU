@@ -45,7 +45,7 @@ function App() {
             {userPost && (
               <div className="user-post">
                 <h3>User Post:</h3>
-                <p className='post-title custom-color'>{userPost.title}</p>
+                <p className='post-title custom-color'>title: {userPost.title}</p>
                 <p>{userPost.body}</p>
               </div>
             )}
