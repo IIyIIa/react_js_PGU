@@ -1,5 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import Navigation from './components/Navigation';
+
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -33,6 +35,7 @@ function App() {
   return (
     <div className="App">
       <h1>Pupanov 0432-06 React</h1>
+      <Navigation />
       {users.map(user => {
         const userPost = getUserPost(user.id);
 
