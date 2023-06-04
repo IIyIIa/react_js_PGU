@@ -1,61 +1,23 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
-
+import PostsPage from './components/PostsPage';
+import AuthPage from './components/AuthPage';
 
 function App() {
-  const [users, setUsers] = useState([]);
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(data => {
-        setUsers(data);
-      })
-      .catch(error => {
-        console.error('Error fetching users:', error);
-      });
-      fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(data => {
-        setPosts(data);
-      })
-      .catch(error => {
-        console.error('Error fetching posts:', error);
-      });
-
-  }, []);
-
-  const getUserPost = (userId) => {
-    return posts.find(post => post.userId === userId);
-  };
-
-
   return (
-    <div className="App">
-      <h1>Pupanov 0432-06 React</h1>
-      <Navigation />
-      {users.map(user => {
-        const userPost = getUserPost(user.id);
-
-        return (
-          <div key={user.id} className="user-card">
-            <h2>{user.name} ({user.username})</h2>
-            <p>mail: {user.email}</p>
-            <p>phone number: {user.phone}</p>
-            <p>company name: "{user.company.name}"</p>
-            {userPost && (
-              <div className="user-post">
-                <h3>User Post:</h3>
-                <p className='post-title custom-color'>title: {userPost.title}</p>
-                <p>{userPost.body}</p>
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
+    <Router>
+      <div className="App">
+        <h1>Pupanov 0432-06 React</h1>
+        <Navigation />
+        <Routes>
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/" element={<Navigate to="/posts" />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
